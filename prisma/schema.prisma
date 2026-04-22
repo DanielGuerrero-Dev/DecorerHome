@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  ADMIN
+  COBRADOR
+  GERENTE
+}
+
+enum EstadoCuenta {
+  AL_DIA
+  EN_RIESGO
+  VENCIDO
+  CRITICO
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(COBRADOR)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Cliente {
+  id        String   @id @default(cuid())
+  nombre    String
+  cedula    String   @unique
+  email     String?
+  telefono  String
+  direccion String?
+  notas     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  cuentas   Cuenta[]
+}
+
+model Cuenta {
+  id               String         @id @default(cuid())
+  clienteId        String
+  cliente          Cliente        @relation(fields: [clienteId], references: [id], onDelete: Cascade)
+  concepto         String
+  valorTotal       Float
+  saldoPendiente   Float
+  fechaVencimiento DateTime
+  estado           EstadoCuenta   @default(AL_DIA)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  pagos            Pago[]
+  notificaciones   Notificacion[]
+}
+
+model Pago {
+  id        String   @id @default(cuid())
+  cuentaId  String
+  cuenta    Cuenta   @relation(fields: [cuentaId], references: [id], onDelete: Cascade)
+  monto     Float
+  fecha     DateTime @default(now())
+  notas     String?
+}
+
+model Notificacion {
+  id         String   @id @default(cuid())
+  cuentaId   String
+  cuenta     Cuenta   @relation(fields: [cuentaId], references: [id], onDelete: Cascade)
+  tipo       String   @default("EMAIL")
+  mensaje    String
+  enviadaEn  DateTime @default(now())
+  exitosa    Boolean  @default(true)
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  nombre    String
+  empresa   String
+  email     String
+  telefono  String
+  mensaje   String?
+  leido     Boolean  @default(false)
+  creadoEn  DateTime @default(now())
+}

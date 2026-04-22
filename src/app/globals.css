@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-base: #06060f;
+    --bg-card: rgba(255, 255, 255, 0.04);
+    --border: rgba(255, 255, 255, 0.08);
+    --accent-from: #6366f1;
+    --accent-to: #a855f7;
+    --text-primary: #f1f5f9;
+    --text-muted: #64748b;
+  }
+
+  body {
+    @apply bg-[var(--bg-base)] text-[var(--text-primary)] antialiased relative min-h-screen;
+    background-image: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.05) 0%, rgba(6, 6, 15, 0) 50%);
+  }
+
+  /* Glassmorphism utility base */
+  .glass {
+    @apply bg-[var(--bg-card)] backdrop-blur-xl border border-[var(--border)];
+  }
+
+  /* Status Colors */
+  .status-AL_DIA {
+    @apply bg-green-500/10 text-green-400;
+  }
+  .status-EN_RIESGO {
+    @apply bg-yellow-500/10 text-yellow-400;
+  }
+  .status-VENCIDO {
+    @apply bg-orange-500/10 text-orange-400;
+  }
+  .status-CRITICO {
+    @apply bg-red-500/10 text-red-400;
+  }
+}
