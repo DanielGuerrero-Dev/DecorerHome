@@ -45,15 +45,19 @@ export const Sidebar = ({ user }: { user: any }) => {
       </nav>
 
       <div className="p-4 border-t border-[var(--border)]">
-        <div className="flex items-center gap-3 mb-4 px-2">
-          <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white font-bold border border-[var(--border)]">
-            {user?.name?.charAt(0) || "U"}
+        <Link href="/dashboard/perfil" className="flex items-center gap-3 mb-4 p-2 -mx-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group">
+          <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white font-bold border border-[var(--border)] overflow-hidden shrink-0 group-hover:border-[var(--accent-from)] transition-colors">
+            {user?.image ? (
+              <img src={user.image} alt={user.name || "User"} className="w-full h-full object-cover" />
+            ) : (
+              user?.name?.charAt(0) || "U"
+            )}
           </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold text-white line-clamp-1">{user?.name}</span>
+          <div className="flex flex-col overflow-hidden">
+            <span className="text-sm font-semibold text-white truncate group-hover:text-[var(--accent-from)] transition-colors">{user?.name}</span>
             <span className="text-xs text-[var(--text-muted)]">{user?.role}</span>
           </div>
-        </div>
+        </Link>
         
         <button
           onClick={() => signOut({ callbackUrl: '/' })}

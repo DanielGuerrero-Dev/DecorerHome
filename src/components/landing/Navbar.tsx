@@ -28,13 +28,19 @@ export const Navbar = () => {
           <a href="#contacto" className="hover:text-white transition-colors">Contacto</a>
         </div>
 
-        <div className="flex items-center gap-4">
-          <Link href="/login" className="hidden md:block py-2 px-4 rounded-lg font-medium border border-[var(--border)] hover:bg-white/5 transition-colors text-sm">
-            Iniciar sesión
+        <div className="flex items-center gap-6">
+          <Link 
+            href="/consultar" 
+            className="text-sm font-medium text-[var(--accent-from)] hover:text-white transition-colors"
+          >
+            Consulta de Clientes
           </Link>
-          <a href="#contacto" className="py-2 px-5 rounded-lg bg-gradient-to-r from-[var(--accent-from)] to-[var(--accent-to)] text-white font-medium shadow-[0_0_24px_rgba(139,92,246,0.35)] hover:shadow-[0_0_32px_rgba(139,92,246,0.5)] transition-all text-sm">
-            Solicitar Demo
-          </a>
+          <Link 
+            href="/login" 
+            className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[var(--accent-from)] to-[var(--accent-to)] text-white font-medium text-sm hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all"
+          >
+            Portal Admin
+          </Link>
         </div>
       </div>
     </nav>

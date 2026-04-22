@@ -26,9 +26,13 @@ export const Topbar = ({ user }: { user: any }) => {
       
       <div className="flex items-center gap-4">
         {/* Placeholder for extra actions like global search or bell icon if requested later */}
-        <div className="w-10 h-10 rounded-full glass border border-[var(--border)] flex items-center justify-center text-white font-bold cursor-pointer hover:bg-white/5 transition-colors">
-          {user?.name?.charAt(0) || "U"}
-        </div>
+        <a href="/dashboard/perfil" className="w-10 h-10 rounded-full glass border border-[var(--border)] flex items-center justify-center text-white font-bold cursor-pointer hover:border-[var(--accent-from)] transition-colors overflow-hidden">
+          {user?.image ? (
+            <img src={user.image} alt={user.name || "User"} className="w-full h-full object-cover" />
+          ) : (
+            user?.name?.charAt(0) || "U"
+          )}
+        </a>
       </div>
     </header>
   )
